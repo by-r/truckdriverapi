@@ -5,10 +5,11 @@ rest API server to expose a List of Drivers to a client application
 - [x]  Python 3.8+ 
 - [x]  Pipenv
 - [x]  Django rest framework
-- [ ]  Postgres 13+
+- [x]  Postgres 13+
 
 ## Library
 - Django-Filter: Simple library to help ease filtering
+- Psycopg2 : PostgreSQL db adapter for Python
 
 ## Potential Improvement
 - to be added
