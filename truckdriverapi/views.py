@@ -1,14 +1,29 @@
-from django.http import JsonResponse
 from .models import Driver
 from .serializers import DriverSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.generics import ListAPIView
 
 # filter library
+from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters
 
-# driver/ - list all driver
+# Filterset function for DriverList
+class DriverFilter(filters.FilterSet):
+    class Meta:
+        model = Driver
+        fields = ( 'email', 'mobilenum', 'language', 'assigned_truck')
+
+# driver - list all driver with filters
+class DriverList(ListAPIView):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
+    filter_backends = [DjangoFilterBackend, ]
+    #filterset_fields = ['email', 'mobilenum', ]
+    filterset_class = DriverFilter
+
+# driver/ - create single driver
 @api_view(['POST', ])
 def driver_create(request):
     serializer = DriverSerializer(data=request.data)
@@ -40,25 +55,8 @@ def driver_detail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
         
 
-# TEST
-from rest_framework.generics import ListAPIView
-
-from django_filters.rest_framework import DjangoFilterBackend
-
-class ProductFilter(filters.FilterSet):
-
-    class Meta:
-        model = Driver
-        fields = ['email', 'mobilenum']
 
 
-class DriverList(ListAPIView):
-    queryset = Driver.objects.all()
-    serializer_class = DriverSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['email', 'mobilenum', ]
-    
-    
 
     
     
