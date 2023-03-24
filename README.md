@@ -12,10 +12,14 @@ rest API server to expose a List of Drivers to a client application
 - Psycopg2 : PostgreSQL db adapter for Python
 
 ## Potential Improvement
-- to be added
+- Adding custom front end templates
+- Implement authentication
+- Pagination: future-proof, if there are a lot objects
+- Unit Test: to ensure they API endpoints work as expected
+- Caching
 
 ## Production Consideration
-- to be added
+- Containerization: Docker/Kubernetes to package project into containers
 
 ## Assumptions
 ![Schema Assumption](https://user-images.githubusercontent.com/98715291/227418556-cd588a47-f237-41f5-afe0-11783061b6c9.png)
