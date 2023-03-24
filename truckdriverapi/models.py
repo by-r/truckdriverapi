@@ -9,11 +9,17 @@ class Driver(models.Model):
     city = models.ForeignKey("City", on_delete=models.CASCADE)
     district = models.CharField(max_length=50, blank=True, null=True)
     language = models.ForeignKey("Language", on_delete=models.CASCADE)
-    assigned_truck = models.CharField(max_length=50, unique=True)
+    assigned_truck = models.OneToOneField("AssignedTruck", on_delete=models.CASCADE, primary_key=True)
 
     def __str__(self):
         return self.name
 
+class AssignedTruck(models.Model):
+    number_plate = models.CharField(max_length=10, unique=True)
+    registration_number = models.CharField(max_length=50, unique=True)
+    
+    def __str__(self):
+        return f"{self.number_plate} - {self.registration_number}"
 
 class City(models.Model):
 
