@@ -5,21 +5,18 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+# filter library
+from django_filters import rest_framework as filters
+
 # driver/ - list all driver
-@api_view(['GET', 'POST'])
-def driver_list(request):
+@api_view(['POST', ])
+def driver_create(request):
+    serializer = DriverSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(serializer.data)
     
-    if request.method == 'GET':
-        driver = Driver.objects.all()
-        serializer = DriverSerializer(driver, many=True)
-        return Response(serializer.data)
     
-    if request.method == 'POST':
-        serializer = DriverSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
 # driver/<id> - returns single driver
 @api_view(['GET', 'PUT', 'DELETE'])
 def driver_detail(request, pk):
@@ -42,4 +39,26 @@ def driver_detail(request, pk):
         drink.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
         
+
+# TEST
+from rest_framework.generics import ListAPIView
+
+from django_filters.rest_framework import DjangoFilterBackend
+
+class ProductFilter(filters.FilterSet):
+
+    class Meta:
+        model = Driver
+        fields = ['email', 'mobilenum']
+
+
+class DriverList(ListAPIView):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['email', 'mobilenum', ]
+    
+    
+
+    
     
