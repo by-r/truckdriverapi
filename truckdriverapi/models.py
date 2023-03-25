@@ -23,24 +23,7 @@ class AssignedTruck(models.Model):
 
 class City(models.Model):
 
-    CITIES_IN_MALAYSIA = [
-        ('JHR', 'Johor'),
-        ('KDH', 'Kedah'),
-        ('KTN', 'Kelantan'),
-        ('KUL', 'Kuala Lumpur'),
-        ('LBN', 'Labuan'),
-        ('MLK', 'Melaka'),
-        ('NSN', 'Negeri Sembilan'),
-        ('PHG', 'Pahang'),
-        ('PRK', 'Perak'),
-        ('PLS', 'Perlis'),
-        ('SBH', 'Sabah'),
-        ('SGR', 'Selangor'),
-        ('TRG', 'Terengganu'),
-
-    ]
-    name = models.CharField(
-        max_length=3, choices=CITIES_IN_MALAYSIA, default=None)
+    name = models.CharField(max_length=50)
 
     class Meta:
         verbose_name = ("City")
