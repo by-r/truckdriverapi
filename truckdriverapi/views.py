@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView
+from rest_framework.views import APIView
 
 # filter library
 from django_filters.rest_framework import DjangoFilterBackend
@@ -20,17 +21,16 @@ class DriverList(ListAPIView):
     queryset = Driver.objects.all()
     serializer_class = DriverSerializer
     filter_backends = [DjangoFilterBackend, ]
-    #filterset_fields = ['email', 'mobilenum', ]
     filterset_class = DriverFilter
 
 # driver/ - create single driver
-@api_view(['POST', ])
-def driver_create(request):
-    serializer = DriverSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+class DriverCreate(APIView):
+    def post(self, request, format=None):
+        serializer = DriverSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
 # driver/<id> - returns single driver
