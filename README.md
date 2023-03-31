@@ -17,6 +17,7 @@ rest API server to expose a List of Drivers to a client application
 - Pagination: future-proof, if there are a lot objects
 - Unit Test: to ensure they API endpoints work as expected
 - Caching
+- Models/Serializers files -redundant code
 
 ## Production Consideration
 - Containerization: Docker/Kubernetes to package project into containers
