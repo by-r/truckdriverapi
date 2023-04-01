@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'truckdriverapi',
+    'driver',
     
     'rest_framework',
     'django_filters',
@@ -54,8 +55,8 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     
-    #'django.middleware.common.CommonMiddleware',
-    'truckdriverapi.middleware.CommonMiddlewareAppendSlashWithoutRedirect',
+    'django.middleware.common.CommonMiddleware',
+    # 'truckdriverapi.middleware.CommonMiddlewareAppendSlashWithoutRedirect',
     
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
